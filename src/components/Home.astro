@@ -1,25 +1,24 @@
 ---
 import Base from '../layouts/Base.astro';
 import Proyectos from './Proyectos.tsx';
-import { t, idiomas, type Lang } from '../i18n/ui';
+import T from './T.astro';
+import { t } from '../i18n/ui';
 import { sitio } from '../config/sitio';
-interface Props { lang: Lang }
-const { lang } = Astro.props;
-const tx = t[lang];
+const { es, en } = t;
 const proyectos = Object.values(import.meta.glob('../data/proyectos/*.json', { eager: true, import: 'default' })) as any[];
-const otro: Lang = lang === 'es' ? 'en' : 'es';
-const base = lang === 'en' ? '/en' : '';
 ---
-<Base lang={lang} title={`${sitio.nombre} | ${tx.portada.titulo}`} description={tx.portada.sub}>
+<Base title={{ es: `${sitio.nombre} | ${es.portada.titulo}`, en: `${sitio.nombre} | ${en.portada.titulo}` }} description={{ es: es.portada.sub, en: en.portada.sub }}>
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
     <nav class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-4 text-sm">
-      <a href={`${base}/`} class="font-bold text-marca">{sitio.nombre}</a>
+      <a href="#" class="font-bold text-marca">{sitio.nombre}</a>
       <div class="flex items-center gap-4">
-        <a class="hidden sm:inline" href="#nosotros">{tx.nav.nosotros}</a>
-        <a class="hidden sm:inline" href="#servicios">{tx.nav.servicios}</a>
-        <a href="#proyectos">{tx.nav.proyectos}</a>
-        <a href="#contacto">{tx.nav.contacto}</a>
-        <a href={otro === 'en' ? '/en/' : '/'} hreflang={otro} lang={otro} class="border rounded px-2 py-1">{otro.toUpperCase()}</a>
+        <a class="hidden sm:inline" href="#nosotros"><T es={es.nav.nosotros} en={en.nav.nosotros} /></a>
+        <a class="hidden sm:inline" href="#servicios"><T es={es.nav.servicios} en={en.nav.servicios} /></a>
+        <a href="#proyectos"><T es={es.nav.proyectos} en={en.nav.proyectos} /></a>
+        <a href="#contacto"><T es={es.nav.contacto} en={en.nav.contacto} /></a>
+        <button type="button" data-lang-toggle aria-label="Cambiar idioma / Change language" class="border rounded px-2 py-1">
+          <span data-l="es">EN</span><span data-l="en">ES</span>
+        </button>
       </div>
     </nav>
   </header>
@@ -27,53 +26,54 @@ const base = lang === 'en' ? '/en' : '';
   <main>
     <section class="bg-gradient-to-br from-marca to-marca-oscuro text-white">
       <div class="max-w-6xl mx-auto px-4 py-24 sm:py-32">
-        <h1 class="text-4xl sm:text-6xl font-extrabold max-w-2xl">{tx.portada.titulo}</h1>
-        <p class="mt-4 text-lg text-white/80 max-w-xl">{tx.portada.sub}</p>
-        <a href="#contacto" class="inline-block mt-8 bg-acento text-black font-semibold px-6 py-3 rounded">{tx.portada.cta}</a>
+        <h1 class="text-4xl sm:text-6xl font-extrabold max-w-2xl"><T es={es.portada.titulo} en={en.portada.titulo} /></h1>
+        <p class="mt-4 text-lg text-white/80 max-w-xl"><T es={es.portada.sub} en={en.portada.sub} /></p>
+        <a href="#contacto" class="inline-block mt-8 bg-acento text-black font-semibold px-6 py-3 rounded"><T es={es.portada.cta} en={en.portada.cta} /></a>
       </div>
     </section>
 
     <section id="nosotros" class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-3xl font-bold mb-4">{tx.nosotros.titulo}</h2>
-      <p class="max-w-2xl text-gray-700">{tx.nosotros.texto}</p>
+      <h2 class="text-3xl font-bold mb-4"><T es={es.nosotros.titulo} en={en.nosotros.titulo} /></h2>
+      <p class="max-w-2xl text-gray-700"><T es={es.nosotros.texto} en={en.nosotros.texto} /></p>
     </section>
 
     <section id="servicios" class="bg-white py-16">
       <div class="max-w-6xl mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-6">{tx.servicios.titulo}</h2>
+        <h2 class="text-3xl font-bold mb-6"><T es={es.servicios.titulo} en={en.servicios.titulo} /></h2>
         <ul class="grid gap-4 sm:grid-cols-3">
-          {tx.servicios.items.map((s) => <li class="p-6 rounded-xl border border-gray-200 font-semibold">{s}</li>)}
+          {es.servicios.items.map((s, i) => <li class="p-6 rounded-xl border border-gray-200 font-semibold"><T es={s} en={en.servicios.items[i]} /></li>)}
         </ul>
       </div>
     </section>
 
     <section id="proyectos" class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-3xl font-bold mb-6">{tx.proyectos.titulo}</h2>
-      <Proyectos client:visible lang={lang} proyectos={proyectos} />
+      <h2 class="text-3xl font-bold mb-6"><T es={es.proyectos.titulo} en={en.proyectos.titulo} /></h2>
+      <Proyectos client:visible proyectos={proyectos} />
     </section>
 
     <section id="contacto" class="bg-white py-16">
       <div class="max-w-xl mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-6">{tx.contacto.titulo}</h2>
+        <h2 class="text-3xl font-bold mb-6"><T es={es.contacto.titulo} en={en.contacto.titulo} /></h2>
         <form class="grid gap-4" onsubmit="event.preventDefault()">
-          <label class="grid gap-1 text-sm">{tx.contacto.nombre}<input required name="nombre" class="border rounded px-3 py-2" /></label>
-          <label class="grid gap-1 text-sm">{tx.contacto.correo}<input required type="email" name="correo" class="border rounded px-3 py-2" /></label>
-          <label class="grid gap-1 text-sm">{tx.contacto.proyecto}
+          <label class="grid gap-1 text-sm"><T es={es.contacto.nombre} en={en.contacto.nombre} /><input required name="nombre" class="border rounded px-3 py-2" /></label>
+          <label class="grid gap-1 text-sm"><T es={es.contacto.correo} en={en.contacto.correo} /><input required type="email" name="correo" class="border rounded px-3 py-2" /></label>
+          <label class="grid gap-1 text-sm"><T es={es.contacto.proyecto} en={en.contacto.proyecto} />
             <select name="proyecto" id="campo-proyecto" class="border rounded px-3 py-2">
               <option value="">—</option>
-              {proyectos.map((p) => <option value={p.id}>{p.nombre[lang]}</option>)}
+              {proyectos.map((p) => <option value={p.id} data-es={p.nombre.es} data-en={p.nombre.en}>{p.nombre.es}</option>)}
             </select>
           </label>
-          <label class="grid gap-1 text-sm">{tx.contacto.mensaje}<textarea required name="mensaje" rows="4" class="border rounded px-3 py-2"></textarea></label>
-          <button class="bg-marca text-white py-3 rounded font-semibold">{tx.contacto.enviar}</button>
-          <p class="text-xs text-gray-500">{tx.contacto.nota}</p>
+          <label class="grid gap-1 text-sm"><T es={es.contacto.mensaje} en={en.contacto.mensaje} /><textarea required name="mensaje" rows="4" class="border rounded px-3 py-2"></textarea></label>
+          <button class="bg-marca text-white py-3 rounded font-semibold"><T es={es.contacto.enviar} en={en.contacto.enviar} /></button>
+          <p class="text-xs text-gray-500"><T es={es.contacto.nota} en={en.contacto.nota} /></p>
         </form>
       </div>
     </section>
   </main>
 
-  <a href={`https://wa.me/${sitio.whatsapp}`} aria-label={tx.wa}
-    class="fixed bottom-4 right-4 z-40 bg-green-500 text-white px-4 py-3 rounded-full shadow-lg text-sm font-semibold">WhatsApp</a>
+  <a href={`https://wa.me/${sitio.whatsapp}`} class="fixed bottom-4 right-4 z-40 bg-green-500 text-white px-4 py-3 rounded-full shadow-lg text-sm font-semibold">
+    <span class="sr-only"><T es={es.wa} en={en.wa} /></span>WhatsApp
+  </a>
 
   <script is:inline>
     const p = new URLSearchParams(location.search).get('proyecto');

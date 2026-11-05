@@ -1,20 +1,44 @@
 ---
 import '../styles/global.css';
-import type { Lang } from '../i18n/ui';
-interface Props { lang: Lang; title: string; description: string }
-const { lang, title, description } = Astro.props;
+interface Props { title: Record<'es' | 'en', string>; description: Record<'es' | 'en', string> }
+const { title, description } = Astro.props;
 ---
 <!doctype html>
-<html lang={lang}>
+<html lang="es" data-title-es={title.es} data-title-en={title.en} data-desc-es={description.es} data-desc-en={description.en}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <link rel="alternate" hreflang="es" href="/" />
-    <link rel="alternate" hreflang="en" href="/en/" />
+    <title>{title.es}</title>
+    <meta name="description" content={description.es} />
+    <meta property="og:title" content={title.es} />
+    <meta property="og:description" content={description.es} />
+    <!-- Idioma guardado, antes de pintar para evitar parpadeo. Por defecto: español. -->
+    <script is:inline>
+      try { var l = localStorage.getItem('lang'); if (l === 'en' || l === 'es') document.documentElement.lang = l; } catch (e) {}
+    </script>
   </head>
-  <body><slot /></body>
+  <body>
+    <slot />
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        function aplicar() {
+          var l = root.lang;
+          document.title = root.dataset['title' + (l === 'en' ? 'En' : 'Es')];
+          var m = document.querySelector('meta[name=description]');
+          if (m) m.content = root.dataset['desc' + (l === 'en' ? 'En' : 'Es')];
+          document.querySelectorAll('option[data-es]').forEach(function (o) { o.textContent = o.dataset[l === 'en' ? 'en' : 'es']; });
+        }
+        aplicar();
+        document.addEventListener('click', function (e) {
+          var b = e.target.closest && e.target.closest('[data-lang-toggle]');
+          if (!b) return;
+          root.lang = root.lang === 'es' ? 'en' : 'es';
+          try { localStorage.setItem('lang', root.lang); } catch (x) {}
+          aplicar();
+          window.dispatchEvent(new Event('langchange'));
+        });
+      })();
+    </script>
+  </body>
 </html>

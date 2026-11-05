@@ -1,0 +1,6 @@
+---
+// Texto en los dos idiomas; el CSS muestra solo el del idioma activo.
+interface Props { es: string; en: string }
+const { es, en } = Astro.props;
+---
+<span data-l="es">{es}</span><span data-l="en">{en}</span>

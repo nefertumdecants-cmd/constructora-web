@@ -18,8 +18,7 @@ export default function DetalleProyecto({ lang, p, onClose }: { lang: Lang; p: P
     return () => { document.removeEventListener('keydown', h); document.body.style.overflow = ''; previo?.focus(); };
   }, []);
   const dato = (k: string, v: string) => <div><dt class="text-xs text-gray-500">{k}</dt><dd class="font-semibold">{v}</dd></div>;
-  const base = lang === 'en' ? '/en' : '';
-  return (
+    return (
     <div class="fixed inset-0 bg-black/60 z-50 overflow-y-auto p-4" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div role="dialog" aria-modal="true" aria-label={p.nombre[lang]} class="bg-white rounded-xl max-w-2xl mx-auto p-5 sm:p-6">
         <div class="flex justify-between gap-4">
@@ -55,7 +54,7 @@ export default function DetalleProyecto({ lang, p, onClose }: { lang: Lang; p: P
               <span class="text-gray-500">{mes(lang, h.fecha)}</span> — {h.titulo[lang]}</li>
           ))}
         </ol>
-        <a href={`${base}/?proyecto=${p.id}#contacto`} onClick={onClose} class="inline-block mt-6 bg-marca text-white px-5 py-2 rounded font-semibold">{tx.consultar}</a>
+        <a href={`/?proyecto=${p.id}#contacto`} onClick={onClose} class="inline-block mt-6 bg-marca text-white px-5 py-2 rounded font-semibold">{tx.consultar}</a>
       </div>
     </div>
   );

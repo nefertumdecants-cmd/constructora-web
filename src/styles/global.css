@@ -10,3 +10,6 @@
 }
 html { scroll-behavior: smooth; }
 body { background: var(--color-fondo); color: #1c1c1c; font-family: var(--font-sans); }
+
+/* Idioma: se ocultan los textos del idioma que no está activo (html[lang]) */
+html[lang="es"] [data-l="en"], html[lang="en"] [data-l="es"] { display: none !important; }

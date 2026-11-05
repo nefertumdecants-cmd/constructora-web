@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import { lazy, Suspense } from 'preact/compat';
 import { t, type Lang } from '../i18n/ui';
 import type { Proyecto } from './tipos';
@@ -6,7 +6,21 @@ import DetalleProyecto from './DetalleProyecto';
 
 const Mapa = lazy(() => import('./MapaProyectos'));
 
-export default function Proyectos({ lang, proyectos }: { lang: Lang; proyectos: Proyecto[] }) {
+// El idioma vive en <html lang>; el botón ES/EN (Base.astro) avisa con el evento 'langchange'.
+function useLang(): Lang {
+  const leer = (): Lang => (typeof document !== 'undefined' && document.documentElement.lang === 'en' ? 'en' : 'es');
+  const [lang, setLang] = useState<Lang>(leer);
+  useEffect(() => {
+    const h = () => setLang(leer());
+    h();
+    window.addEventListener('langchange', h);
+    return () => window.removeEventListener('langchange', h);
+  }, []);
+  return lang;
+}
+
+export default function Proyectos({ proyectos }: { proyectos: Proyecto[] }) {
+  const lang = useLang();
   const tx = t[lang].proyectos;
   const [estado, setEstado] = useState('');
   const [ciudad, setCiudad] = useState('');

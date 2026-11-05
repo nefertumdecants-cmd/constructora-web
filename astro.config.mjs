@@ -3,9 +3,9 @@ import preact from '@astrojs/preact';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
+// Una sola página con dos idiomas: el cambio ES/EN se hace en el navegador (ver Base.astro).
 export default defineConfig({
-  site: 'https://example.com', // TODO(cliente): dominio real
-  integrations: [preact(), sitemap({ i18n: { defaultLocale: 'es', locales: { es: 'es-ES', en: 'en-US' } } })],
-  i18n: { defaultLocale: 'es', locales: ['es', 'en'], routing: { prefixDefaultLocale: false } },
+  site: 'https://constructora-web.vercel.app', // TODO(cliente): dominio real
+  integrations: [preact(), sitemap()],
   vite: { plugins: [tailwindcss()] },
 });
