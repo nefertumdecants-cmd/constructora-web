@@ -1,10 +1,82 @@
 {
   "id": "proyecto-ejemplo-3",
-  "nombre": { "es": "Proyecto Ejemplo 3", "en": "Sample Project 3" },
-  "descripcion": { "es": "Descripción ficticia del proyecto.", "en": "Fictitious project description." },
+  "nombre": {
+    "es": "Proyecto Ejemplo 3",
+    "en": "Sample Project 3"
+  },
+  "eslogan": {
+    "es": "Eslogan de ejemplo",
+    "en": "Sample tagline"
+  },
   "estado": "entregado",
   "avance": 100,
+  "ubicacion": {
+    "direccion": "Dirección de ejemplo",
+    "ciudad": {
+      "es": "Ciudad Ejemplo B",
+      "en": "Example City B"
+    },
+    "lat": 4.6,
+    "lng": -74.1
+  },
   "tipo": "comercial",
-  "ubicacion": { "ciudad": "Ciudad Ejemplo", "lat": 0, "lng": 0 },
-  "imagenes": []
+  "descripcion": {
+    "es": "Descripción ficticia del proyecto. TODO(cliente): reemplazar con datos reales.",
+    "en": "Fictitious project description. TODO(client): replace with real data."
+  },
+  "fechaInicio": "2025-01",
+  "fechaEntrega": "2027-06",
+  "areaTerreno": 3000,
+  "areaConstruccion": 7500,
+  "unidades": "30",
+  "caracteristicas": {
+    "es": [
+      "Característica ejemplo 1",
+      "Característica ejemplo 2"
+    ],
+    "en": [
+      "Sample feature 1",
+      "Sample feature 2"
+    ]
+  },
+  "amenidades": {
+    "es": [
+      "Amenidad ejemplo 1",
+      "Amenidad ejemplo 2"
+    ],
+    "en": [
+      "Sample amenity 1",
+      "Sample amenity 2"
+    ]
+  },
+  "hitos": [
+    {
+      "fecha": "2025-01",
+      "titulo": {
+        "es": "Inicio de obra",
+        "en": "Construction start"
+      }
+    },
+    {
+      "fecha": "2026-03",
+      "titulo": {
+        "es": "Estructura terminada",
+        "en": "Structure completed"
+      }
+    },
+    {
+      "fecha": "2027-06",
+      "titulo": {
+        "es": "Entrega",
+        "en": "Delivery"
+      }
+    }
+  ],
+  "destacado": false,
+  "imagenes": [],
+  "planos": [],
+  "contacto": {
+    "whatsapp": "",
+    "correo": ""
+  }
 }

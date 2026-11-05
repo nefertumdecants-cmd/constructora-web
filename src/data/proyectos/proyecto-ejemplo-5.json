@@ -1,0 +1,82 @@
+{
+  "id": "proyecto-ejemplo-5",
+  "nombre": {
+    "es": "Proyecto Ejemplo 5",
+    "en": "Sample Project 5"
+  },
+  "eslogan": {
+    "es": "Eslogan de ejemplo",
+    "en": "Sample tagline"
+  },
+  "estado": "en_construccion",
+  "avance": 40,
+  "ubicacion": {
+    "direccion": "Dirección de ejemplo",
+    "ciudad": {
+      "es": "Ciudad Ejemplo C",
+      "en": "Example City C"
+    },
+    "lat": 4.8,
+    "lng": -74.03
+  },
+  "tipo": "obra_publica",
+  "descripcion": {
+    "es": "Descripción ficticia del proyecto. TODO(cliente): reemplazar con datos reales.",
+    "en": "Fictitious project description. TODO(client): replace with real data."
+  },
+  "fechaInicio": "2025-01",
+  "fechaEntrega": "2027-06",
+  "areaTerreno": 5000,
+  "areaConstruccion": 12500,
+  "unidades": "50",
+  "caracteristicas": {
+    "es": [
+      "Característica ejemplo 1",
+      "Característica ejemplo 2"
+    ],
+    "en": [
+      "Sample feature 1",
+      "Sample feature 2"
+    ]
+  },
+  "amenidades": {
+    "es": [
+      "Amenidad ejemplo 1",
+      "Amenidad ejemplo 2"
+    ],
+    "en": [
+      "Sample amenity 1",
+      "Sample amenity 2"
+    ]
+  },
+  "hitos": [
+    {
+      "fecha": "2025-01",
+      "titulo": {
+        "es": "Inicio de obra",
+        "en": "Construction start"
+      }
+    },
+    {
+      "fecha": "2026-03",
+      "titulo": {
+        "es": "Estructura terminada",
+        "en": "Structure completed"
+      }
+    },
+    {
+      "fecha": "2027-06",
+      "titulo": {
+        "es": "Entrega",
+        "en": "Delivery"
+      }
+    }
+  ],
+  "destacado": false,
+  "imagenes": [],
+  "planos": [],
+  "contacto": {
+    "whatsapp": "",
+    "correo": ""
+  }
+}
