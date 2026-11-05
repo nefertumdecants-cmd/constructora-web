@@ -1,0 +1,10 @@
+{
+  "id": "proyecto-ejemplo-1",
+  "nombre": { "es": "Proyecto Ejemplo 1", "en": "Sample Project 1" },
+  "descripcion": { "es": "Descripción ficticia del proyecto.", "en": "Fictitious project description." },
+  "estado": "en_construccion",
+  "avance": 62,
+  "tipo": "edificio",
+  "ubicacion": { "ciudad": "Ciudad Ejemplo", "lat": 0, "lng": 0 },
+  "imagenes": []
+}
