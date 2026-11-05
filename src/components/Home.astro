@@ -4,10 +4,12 @@ import Proyectos from './Proyectos.tsx';
 import T from './T.astro';
 import { t } from '../i18n/ui';
 import { sitio } from '../config/sitio';
+import { aviso, cifras, proceso, testimonios, titulos } from '../data/contenido';
 const { es, en } = t;
 const proyectos = Object.values(import.meta.glob('../data/proyectos/*.json', { eager: true, import: 'default' })) as any[];
 ---
 <Base title={{ es: `${sitio.nombre} | ${es.portada.titulo}`, en: `${sitio.nombre} | ${en.portada.titulo}` }} description={{ es: es.portada.sub, en: en.portada.sub }}>
+  <div class="bg-acento text-black text-center text-xs py-1 px-2"><T es={aviso.es} en={aviso.en} /></div>
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
     <nav class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-4 text-sm">
       <a href="#" class="font-bold text-marca">{sitio.nombre}</a>
@@ -15,6 +17,7 @@ const proyectos = Object.values(import.meta.glob('../data/proyectos/*.json', { e
         <a class="hidden sm:inline" href="#nosotros"><T es={es.nav.nosotros} en={en.nav.nosotros} /></a>
         <a class="hidden sm:inline" href="#servicios"><T es={es.nav.servicios} en={en.nav.servicios} /></a>
         <a href="#proyectos"><T es={es.nav.proyectos} en={en.nav.proyectos} /></a>
+        <a class="hidden md:inline" href="#proceso"><T es={titulos.proceso.es} en={titulos.proceso.en} /></a>
         <a href="#contacto"><T es={es.nav.contacto} en={en.nav.contacto} /></a>
         <button type="button" data-lang-toggle aria-label="Cambiar idioma / Change language" class="border rounded px-2 py-1">
           <span data-l="es">EN</span><span data-l="en">ES</span>
@@ -51,6 +54,48 @@ const proyectos = Object.values(import.meta.glob('../data/proyectos/*.json', { e
       <Proyectos client:visible proyectos={proyectos} />
     </section>
 
+    <section id="cifras" class="bg-marca text-white py-16">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-8"><T es={titulos.cifras.es} en={titulos.cifras.en} /></h2>
+        <dl class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          {cifras.map((c) => (
+            <div>
+              <dd class="text-3xl sm:text-4xl xl:text-5xl font-extrabold text-acento whitespace-nowrap"><span data-contar={c.valor}>{c.valor.toLocaleString('es')}</span><span class={c.sufijo.trim() === '+' ? '' : 'text-[0.5em] font-bold ml-1'}>{c.sufijo.trim()}</span></dd>
+              <dt class="mt-1 text-white/80 text-sm"><T es={c.etiqueta.es} en={c.etiqueta.en} /></dt>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+
+    <section id="proceso" class="max-w-6xl mx-auto px-4 py-16">
+      <h2 class="text-3xl font-bold mb-8"><T es={titulos.proceso.es} en={titulos.proceso.en} /></h2>
+      <ol class="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+        {proceso.map((p, i) => (
+          <li class="relative bg-white rounded-xl border border-gray-200 p-5">
+            <span class="absolute -top-3 left-5 bg-acento text-black font-bold w-8 h-8 grid place-items-center rounded-full">{i + 1}</span>
+            <h3 class="mt-3 font-bold"><T es={p.titulo.es} en={p.titulo.en} /></h3>
+            <p class="mt-1 text-sm text-gray-600"><T es={p.texto.es} en={p.texto.en} /></p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="testimonios" class="bg-white py-16">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-8"><T es={titulos.testimonios.es} en={titulos.testimonios.en} /></h2>
+        <ul class="grid gap-6 md:grid-cols-3">
+          {testimonios.map((t) => (
+            <li class="rounded-xl border border-gray-200 p-6 bg-fondo">
+              <blockquote class="text-gray-700"><span class="text-acento text-3xl leading-none" aria-hidden="true">“</span><T es={t.texto.es} en={t.texto.en} /></blockquote>
+              <p class="mt-4 font-semibold">{t.nombre}</p>
+              <p class="text-sm text-gray-500"><T es={t.rol.es} en={t.rol.en} /></p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
     <section id="contacto" class="bg-white py-16">
       <div class="max-w-xl mx-auto px-4">
         <h2 class="text-3xl font-bold mb-6"><T es={es.contacto.titulo} en={en.contacto.titulo} /></h2>
@@ -76,6 +121,23 @@ const proyectos = Object.values(import.meta.glob('../data/proyectos/*.json', { e
   </a>
 
   <script is:inline>
+    // Contador animado de cifras; sin animación si la persona prefiere menos movimiento.
+    (function () {
+      var els = document.querySelectorAll('[data-contar]');
+      if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return; io.unobserve(e.target);
+          var fin = +e.target.dataset.contar, t0 = performance.now();
+          (function paso(t) {
+            var k = Math.min((t - t0) / 1200, 1);
+            e.target.textContent = Math.round(fin * (1 - Math.pow(1 - k, 3))).toLocaleString('es');
+            if (k < 1) requestAnimationFrame(paso);
+          })(t0);
+        });
+      }, { threshold: 0.4 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
     const p = new URLSearchParams(location.search).get('proyecto');
     const c = document.getElementById('campo-proyecto');
     if (p && c) c.value = p;
