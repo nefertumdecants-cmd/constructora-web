@@ -89,3 +89,25 @@ export const iconos = {
   brocha: 'M14 3l7 7-9 9-4 1 1-4 9-9zM3 21l3-3',
   compas: 'M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z',
 } as const;
+
+export const banda = {
+  boton: { es: 'Solicita una asesoría gratuita hoy', en: 'Request a free consultation today' },
+  mensaje: { es: 'Hola, quisiera solicitar una asesoría gratuita.', en: 'Hello, I would like to request a free consultation.' },
+};
+
+export const textosPie = {
+  descripcion: {
+    es: 'Especialistas en transformar espacios comerciales e industriales a través de la construcción, remodelación y consultoría técnica de vanguardia.',
+    en: 'Specialists in transforming commercial and industrial spaces through cutting-edge construction, remodeling and technical consulting.',
+  },
+  enlaces: { es: 'Enlaces', en: 'Links' },
+  contacto: { es: 'Contacto', en: 'Contact' },
+  inicio: { es: 'Inicio', en: 'Home' },
+  nosotros: { es: 'Sobre Nosotros', en: 'About Us' },
+  servicios: { es: 'Servicios', en: 'Services' },
+  proyectos: { es: 'Proyectos', en: 'Projects' },
+  proximamente: { es: '(Próximamente)', en: '(Coming soon)' },
+  derechos: { es: 'Todos los derechos reservados.', en: 'All rights reserved.' },
+  terminos: { es: 'Términos legales', en: 'Legal terms' },
+  privacidad: { es: 'Política de Privacidad', en: 'Privacy Policy' },
+};

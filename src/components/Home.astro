@@ -3,8 +3,8 @@ import Base from '../layouts/Base.astro';
 import Proyectos from './Proyectos.tsx';
 import T from './T.astro';
 import { t } from '../i18n/ui';
-import { sitio, waLink, secciones } from '../config/sitio';
-import { aviso, cifras, proceso, testimonios, titulos, proximamente, servicios, iconos } from '../data/contenido';
+import { sitio, waLink, secciones, pie } from '../config/sitio';
+import { aviso, cifras, proceso, testimonios, titulos, proximamente, servicios, iconos, banda, textosPie } from '../data/contenido';
 const { es, en } = t;
 const tt = t;
 const proyectos = Object.values(import.meta.glob('../data/proyectos/*.json', { eager: true, import: 'default' })) as any[];
@@ -172,6 +172,72 @@ const proyectos = Object.values(import.meta.glob('../data/proyectos/*.json', { e
       </div>
     </section>
   </main>
+
+  <!-- Franja de llamado a la acción (de la maqueta del cliente) -->
+  <section class="bg-acento py-12 text-center" style="background-image: radial-gradient(rgba(255,255,255,.18) 1.5px, transparent 1.5px); background-size: 22px 22px;">
+    <div class="max-w-6xl mx-auto px-4">
+      {(['es', 'en'] as const).map((l) => (
+        <a data-l={l} href={waLink(banda.mensaje[l])} target="_blank" rel="noopener noreferrer" class="inline-block bg-marca text-white font-semibold px-8 py-4 rounded-full shadow-lg transition duration-300 motion-safe:hover:-translate-y-1 hover:shadow-2xl">{banda.boton[l]}</a>
+      ))}
+    </div>
+  </section>
+
+  <footer class="bg-marca text-white">
+    <div class="max-w-6xl mx-auto px-4 pt-14 pb-24">
+      <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1.2fr]">
+        <div>
+          <p class="leading-tight"><span class="block text-2xl font-extrabold tracking-wide">{sitio.nombre}</span><span class="block text-[10px] uppercase tracking-wider text-white/60"><T es={sitio.subtitulo.es} en={sitio.subtitulo.en} /></span></p>
+          <p class="mt-5 text-sm text-white/75 max-w-sm"><T es={textosPie.descripcion.es} en={textosPie.descripcion.en} /></p>
+          <div class="mt-6 flex gap-3">
+            {([
+              ['facebook', 'Facebook', 'M13.5 21v-7.5H16l.5-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.5V21h3z'],
+              ['instagram', 'Instagram', ''],
+              ['linkedin', 'LinkedIn', 'M6.5 9H3.5v11h3V9zM5 4a1.7 1.7 0 1 0 0 3.4A1.7 1.7 0 0 0 5 4zM20.5 20h-3v-5.4c0-1.4-.5-2.3-1.7-2.3-1 0-1.6.7-1.8 1.3-.1.2-.1.5-.1.8V20h-3s.1-9.6 0-11h3v1.6c.4-.7 1.1-1.6 2.8-1.6 2 0 3.8 1.3 3.8 4.2V20z'],
+            ] as const).map(([k, nombre, d]) => {
+              const url = pie.redes[k];
+              const Tag = url ? 'a' : 'span';
+              return (
+                <Tag href={url || undefined} target={url ? '_blank' : undefined} rel={url ? 'noopener noreferrer' : undefined} aria-label={nombre}
+                  class={`w-10 h-10 rounded-full bg-white/10 grid place-items-center transition ${url ? 'hover:bg-acento' : 'opacity-60'}`}>
+                  {k === 'instagram'
+                    ? <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.5" /><circle cx="12" cy="12" r="3.6" /><circle cx="17" cy="7" r=".8" fill="currentColor" /></svg>
+                    : <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d={d} /></svg>}
+                </Tag>
+              );
+            })}
+          </div>
+        </div>
+
+        <nav aria-label={textosPie.enlaces.es}>
+          <h2 class="font-bold text-lg"><T es={textosPie.enlaces.es} en={textosPie.enlaces.en} /></h2>
+          <ul class="mt-4 space-y-3 text-sm text-white/80">
+            <li><a class="hover:text-acento transition" href="#">&rsaquo; <T es={textosPie.inicio.es} en={textosPie.inicio.en} /></a></li>
+            <li><a class="hover:text-acento transition" href="#nosotros">&rsaquo; <T es={textosPie.nosotros.es} en={textosPie.nosotros.en} /></a></li>
+            <li><a class="hover:text-acento transition" href="#servicios">&rsaquo; <T es={textosPie.servicios.es} en={textosPie.servicios.en} /></a></li>
+            <li>
+              {secciones.proyectos
+                ? <a class="hover:text-acento transition" href="#proyectos">&rsaquo; <T es={textosPie.proyectos.es} en={textosPie.proyectos.en} /></a>
+                : <span>&rsaquo; <T es={textosPie.proyectos.es} en={textosPie.proyectos.en} /> <T es={textosPie.proximamente.es} en={textosPie.proximamente.en} /></span>}
+            </li>
+          </ul>
+        </nav>
+
+        <div>
+          <h2 class="font-bold text-lg"><T es={textosPie.contacto.es} en={textosPie.contacto.en} /></h2>
+          <ul class="mt-4 space-y-3 text-sm text-white/80">
+            <li class="flex gap-3"><span class="text-acento" aria-hidden="true">&#9679;</span>{pie.direccion}</li>
+            <li class="flex gap-3"><span class="text-acento" aria-hidden="true">&#9679;</span><a class="hover:text-acento transition" href={waLink('')}>{pie.telefono}</a></li>
+            <li class="flex gap-3"><span class="text-acento" aria-hidden="true">&#9679;</span><a class="hover:text-acento transition break-all" href={`mailto:${sitio.correo}`}>{sitio.correo}</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-white/10 flex flex-wrap gap-x-8 gap-y-2 justify-between text-xs text-white/55">
+        <p>&copy; {new Date().getFullYear()} {sitio.nombre} <T es={sitio.subtitulo.es} en={sitio.subtitulo.en} />. <T es={textosPie.derechos.es} en={textosPie.derechos.en} /></p>
+        <p class="flex gap-5"><span><T es={textosPie.terminos.es} en={textosPie.terminos.en} /></span><span><T es={textosPie.privacidad.es} en={textosPie.privacidad.en} /></span></p>
+      </div>
+    </div>
+  </footer>
 
   {(['es', 'en'] as const).map((l) => (
     <a data-l={l} href={waLink(l === 'es' ? 'Hola, quisiera más información.' : 'Hello, I would like more information.')} target="_blank" rel="noopener noreferrer"
