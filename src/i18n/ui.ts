@@ -4,7 +4,7 @@ export type Lang = keyof typeof idiomas;
 export const t = {
   es: {
     nav: { nosotros: 'Quiénes somos', servicios: 'Servicios', proyectos: 'Proyectos', contacto: 'Contacto' },
-    portada: { titulo: 'Construimos lo que imaginas', sub: 'Texto de portada de ejemplo. TODO(cliente)', cta: 'Contáctanos' },
+    portada: { badge: 'VANGUARDIA Y ENERGÍA', t1: 'Espacios que', ac: 'inspiran,', t2: 'estructuras que trascienden.', titulo: 'Espacios que inspiran, estructuras que trascienden.', sub: 'Transformamos tu visión en una realidad sólida. Somos líderes en construcción, remodelación y consultoría para proyectos comerciales e industriales.', cta: 'Nuestros Servicios', cta2: 'Hablemos', anos: '+10 Años', anosTxt: 'de experiencia', cotizar: 'Cotizar Proyecto' },
     nosotros: { titulo: 'Quiénes somos', texto: 'Texto de ejemplo sobre la empresa. TODO(cliente): reemplazar con la historia real.' },
     servicios: { titulo: 'Servicios', items: ['Construcción de edificios', 'Casas y urbanizaciones', 'Obra comercial'] },
     proyectos: {
@@ -23,7 +23,7 @@ export const t = {
   },
   en: {
     nav: { nosotros: 'About us', servicios: 'Services', proyectos: 'Projects', contacto: 'Contact' },
-    portada: { titulo: 'We build what you imagine', sub: 'Sample hero text. TODO(client)', cta: 'Contact us' },
+    portada: { badge: 'VANGUARD & ENERGY', t1: 'Spaces that', ac: 'inspire,', t2: 'structures that transcend.', titulo: 'Spaces that inspire, structures that transcend.', sub: 'We turn your vision into a solid reality. We are leaders in construction, remodeling and consulting for commercial and industrial projects.', cta: 'Our Services', cta2: "Let's talk", anos: '+10 Years', anosTxt: 'of experience', cotizar: 'Request a Quote' },
     nosotros: { titulo: 'About us', texto: 'Sample company text. TODO(client): replace with the real story.' },
     servicios: { titulo: 'Services', items: ['Building construction', 'Houses and developments', 'Commercial works'] },
     proyectos: {

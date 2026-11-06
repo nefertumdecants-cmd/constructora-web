@@ -42,3 +42,50 @@ export const proximamente = {
   boton: { es: 'Escríbenos por WhatsApp', en: 'Message us on WhatsApp' },
   mensaje: { es: 'Hola, quisiera información sobre sus proyectos y servicios.', en: 'Hello, I would like information about your projects and services.' },
 };
+
+// Servicios tomados de la maqueta del cliente (captura de su Google Sites).
+// TODO(cliente): completar las viñetas que se cortaban en la captura y revisar la traducción al inglés.
+export const servicios: { icono: 'edificio' | 'brocha' | 'compas'; titulo: L; texto: L; items: { es: string[]; en: string[] } }[] = [
+  {
+    icono: 'edificio',
+    titulo: { es: 'Construcción Civil', en: 'Civil Construction' },
+    texto: {
+      es: 'Edificamos estructuras sólidas desde los cimientos. Especialistas en naves industriales, locales comerciales y proyectos de obra nueva con los más altos estándares de seguridad y calidad constructiva.',
+      en: 'We build solid structures from the foundations up. Specialists in industrial warehouses, commercial premises and new-build projects with the highest safety and construction quality standards.',
+    },
+    items: {
+      es: ['Estructuras metálicas y hormigón', 'Locales comerciales formato "Stand Alone"'],
+      en: ['Steel and concrete structures', 'Stand-alone commercial premises'],
+    },
+  },
+  {
+    icono: 'brocha',
+    titulo: { es: 'Remodelaciones', en: 'Remodeling' },
+    texto: {
+      es: 'Le damos nueva vida a tu local. Transformaciones arquitectónicas y estéticas que renuevan la experiencia de tus clientes y optimizan la funcionalidad de tu espacio comercial.',
+      en: 'We give your premises a new life. Architectural and aesthetic transformations that renew your customers’ experience and optimize the functionality of your commercial space.',
+    },
+    items: {
+      es: ['Diseño y adecuación de interiores', 'Renovación de fachadas e iluminación'],
+      en: ['Interior design and fit-out', 'Facade and lighting renovation'],
+    },
+  },
+  {
+    icono: 'compas',
+    titulo: { es: 'Consultoría Técnica', en: 'Technical Consulting' },
+    texto: {
+      es: 'Asesoramiento experto para asegurar el éxito de tu inversión. Te acompañamos desde la fase de pre-proyecto, garantizando viabilidad, eficiencia en costos y planificación estratégica.',
+      en: 'Expert advice to ensure the success of your investment. We support you from the pre-project phase, guaranteeing feasibility, cost efficiency and strategic planning.',
+    },
+    items: {
+      es: ['Estudios de viabilidad y presupuestos', 'Gestión de permisos y licencias', 'Supervisión e interventoría de obra'],
+      en: ['Feasibility studies and budgets', 'Permits and licensing management', 'Site supervision and oversight'],
+    },
+  },
+];
+
+export const iconos = {
+  edificio: 'M4 21V5l8-3 8 3v16M9 21v-5h6v5M8 9h2M14 9h2M8 13h2M14 13h2',
+  brocha: 'M14 3l7 7-9 9-4 1 1-4 9-9zM3 21l3-3',
+  compas: 'M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z',
+} as const;
