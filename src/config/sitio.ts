@@ -4,3 +4,6 @@ export const sitio = {
   whatsapp: '593995050650', // número del cliente en formato internacional (Ecuador +593), sin + ni ceros iniciales
   correo: 'contacto@ejemplo.com', // TODO(cliente)
 };
+
+// Enlace de WhatsApp con el mensaje ya escrito (el prospecto solo pulsa "enviar").
+export const waLink = (texto: string) => `https://wa.me/${sitio.whatsapp}?text=${encodeURIComponent(texto)}`;

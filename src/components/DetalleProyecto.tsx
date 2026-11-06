@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'preact/hooks';
 import { t, type Lang } from '../i18n/ui';
 import type { Proyecto } from './tipos';
 import Galeria from './Galeria';
+import { waLink } from '../config/sitio';
 
 const mes = (lang: Lang, f: string) => new Intl.DateTimeFormat(lang, { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${f}-01T00:00:00Z`));
 const m2 = (lang: Lang, n: number) => `${new Intl.NumberFormat(lang).format(n)} m²`;
@@ -17,6 +18,10 @@ export default function DetalleProyecto({ lang, p, onClose }: { lang: Lang; p: P
     document.addEventListener('keydown', h);
     return () => { document.removeEventListener('keydown', h); document.body.style.overflow = ''; previo?.focus(); };
   }, []);
+  // Mensaje que le llega al vendedor: identifica el proyecto exacto (nombre, ciudad, estado y referencia).
+  const mensaje = lang === 'en'
+    ? `Hello, I would like information about the project "${p.nombre.en}" (${p.ubicacion.ciudad.en}, ${tx.estados[p.estado]}). Ref: ${p.id}`
+    : `Hola, quisiera información sobre el proyecto "${p.nombre.es}" (${p.ubicacion.ciudad.es}, ${tx.estados[p.estado]}). Ref: ${p.id}`;
   const dato = (k: string, v: string) => <div><dt class="text-xs text-gray-500">{k}</dt><dd class="font-semibold">{v}</dd></div>;
     return (
     <div class="fixed inset-0 bg-black/60 z-50 overflow-y-auto p-4" onClick={(e) => e.target === e.currentTarget && onClose()}>
@@ -54,7 +59,7 @@ export default function DetalleProyecto({ lang, p, onClose }: { lang: Lang; p: P
               <span class="text-gray-500">{mes(lang, h.fecha)}</span> — {h.titulo[lang]}</li>
           ))}
         </ol>
-        <a href={`/?proyecto=${p.id}#contacto`} onClick={onClose} class="inline-block mt-6 bg-marca text-white px-5 py-2 rounded font-semibold">{tx.consultar}</a>
+        <a href={waLink(mensaje)} target="_blank" rel="noopener noreferrer" class="inline-block mt-6 bg-green-600 text-white px-5 py-2 rounded font-semibold">{tx.consultar}</a>
       </div>
     </div>
   );

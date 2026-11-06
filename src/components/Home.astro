@@ -3,9 +3,10 @@ import Base from '../layouts/Base.astro';
 import Proyectos from './Proyectos.tsx';
 import T from './T.astro';
 import { t } from '../i18n/ui';
-import { sitio } from '../config/sitio';
+import { sitio, waLink } from '../config/sitio';
 import { aviso, cifras, proceso, testimonios, titulos } from '../data/contenido';
 const { es, en } = t;
+const tt = t;
 const proyectos = Object.values(import.meta.glob('../data/proyectos/*.json', { eager: true, import: 'default' })) as any[];
 ---
 <Base title={{ es: `${sitio.nombre} | ${es.portada.titulo}`, en: `${sitio.nombre} | ${en.portada.titulo}` }} description={{ es: es.portada.sub, en: en.portada.sub }}>
@@ -99,7 +100,7 @@ const proyectos = Object.values(import.meta.glob('../data/proyectos/*.json', { e
     <section id="contacto" class="bg-white py-16">
       <div class="max-w-xl mx-auto px-4">
         <h2 class="text-3xl font-bold mb-6"><T es={es.contacto.titulo} en={en.contacto.titulo} /></h2>
-        <form class="grid gap-4" onsubmit="event.preventDefault()">
+        <form id="form-contacto" class="grid gap-4" data-wa={sitio.whatsapp}>
           <label class="grid gap-1 text-sm"><T es={es.contacto.nombre} en={en.contacto.nombre} /><input required name="nombre" class="border rounded px-3 py-2" /></label>
           <label class="grid gap-1 text-sm"><T es={es.contacto.correo} en={en.contacto.correo} /><input required type="email" name="correo" class="border rounded px-3 py-2" /></label>
           <label class="grid gap-1 text-sm"><T es={es.contacto.proyecto} en={en.contacto.proyecto} />
@@ -116,11 +117,31 @@ const proyectos = Object.values(import.meta.glob('../data/proyectos/*.json', { e
     </section>
   </main>
 
-  <a href={`https://wa.me/${sitio.whatsapp}`} class="fixed bottom-4 right-4 z-40 bg-green-500 text-white px-4 py-3 rounded-full shadow-lg text-sm font-semibold">
-    <span class="sr-only"><T es={es.wa} en={en.wa} /></span>WhatsApp
-  </a>
+  {(['es', 'en'] as const).map((l) => (
+    <a data-l={l} href={waLink(l === 'es' ? 'Hola, quisiera más información.' : 'Hello, I would like more information.')} target="_blank" rel="noopener noreferrer"
+      class="fixed bottom-4 right-4 z-40 bg-green-500 text-white px-4 py-3 rounded-full shadow-lg text-sm font-semibold">
+      <span class="sr-only">{tt[l].wa}</span>WhatsApp
+    </a>
+  ))}
 
   <script is:inline>
+    // Formulario -> WhatsApp: arma el mensaje con todo lo que escribió el prospecto.
+    (function () {
+      var f = document.getElementById('form-contacto');
+      if (!f) return;
+      f.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var en = document.documentElement.lang === 'en';
+        var v = function (n) { return (f.elements[n].value || '').trim(); };
+        var sel = f.elements.proyecto; var proy = sel.value ? sel.options[sel.selectedIndex].textContent : '';
+        var L = en ? ['Hello, I am', 'Email', 'Project', 'Ref', 'Message'] : ['Hola, soy', 'Correo', 'Proyecto', 'Ref', 'Mensaje'];
+        var txt = L[0] + ' ' + v('nombre') + '.\n' + L[1] + ': ' + v('correo') + '\n' +
+          (proy ? L[2] + ': ' + proy + ' (' + L[3] + ': ' + sel.value + ')\n' : '') + L[4] + ': ' + v('mensaje');
+        var url = 'https://wa.me/' + f.dataset.wa + '?text=' + encodeURIComponent(txt);
+        var w = window.open(url, '_blank'); // sin 'noopener' para poder detectar si el navegador lo bloqueó
+        if (w) w.opener = null; else location.href = url;
+      });
+    })();
     // Contador animado de cifras; sin animación si la persona prefiere menos movimiento.
     (function () {
       var els = document.querySelectorAll('[data-contar]');
