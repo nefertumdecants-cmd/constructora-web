@@ -32,3 +32,13 @@ export const titulos = {
   proceso: { es: 'Cómo trabajamos', en: 'How we work' },
   testimonios: { es: 'Lo que dicen nuestros clientes', en: 'What our clients say' },
 };
+
+export const proximamente = {
+  titulo: { es: 'Muy pronto: nuestros proyectos', en: 'Coming soon: our projects' },
+  texto: {
+    es: 'Estamos preparando la galería de obras en curso y entregadas. Mientras tanto, cuéntanos qué quieres construir.',
+    en: 'We are preparing the gallery of ongoing and completed works. In the meantime, tell us what you want to build.',
+  },
+  boton: { es: 'Escríbenos por WhatsApp', en: 'Message us on WhatsApp' },
+  mensaje: { es: 'Hola, quisiera información sobre sus proyectos y servicios.', en: 'Hello, I would like information about your projects and services.' },
+};

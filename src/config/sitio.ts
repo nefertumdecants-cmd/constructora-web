@@ -7,3 +7,7 @@ export const sitio = {
 
 // Enlace de WhatsApp con el mensaje ya escrito (el prospecto solo pulsa "enviar").
 export const waLink = (texto: string) => `https://wa.me/${sitio.whatsapp}?text=${encodeURIComponent(texto)}`;
+
+// Secciones que dependen de datos reales del cliente. Cambiar a true cuando existan.
+// (Proyectos: agregar un JSON por proyecto en src/data/proyectos/ — hoy son ejemplos ficticios.)
+export const secciones = { proyectos: false, cifras: false, testimonios: false };
